@@ -33,7 +33,7 @@ Proxy **ONLY SOCKS5**  supported
 
 8. Use ```import.js``` to import accounts:
     ```
-    node scr/tg/import
+    node scr/telegram/import
     ```
 You need to create an application and get the api_id and api_hash for yours accounts.
 
