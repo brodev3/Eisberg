@@ -1,4 +1,4 @@
-# Eisberg
+# blumer
 
 <p>
       <img src="https://i.ibb.co/3sHQCSp/av.jpg" >
@@ -11,7 +11,7 @@
 
 ## About
 
-Automatically claim rewards and complete tasks !
+Automatically collect rewards and start farming !
 
 Proxy **ONLY SOCKS5**  supported
 
@@ -19,21 +19,20 @@ Proxy **ONLY SOCKS5**  supported
 
 1. Node JS
 2. Clone the repository to your disk
-3. In the folder, change the name of the ```config_ex.json``` on ```config.json```
+3. In the **scr** folder, change the name of the ```config_ex.json``` on ```config.json```
 4. Launch the console (for example, Windows PowerShell)
 5. Specify the working directory where you have uploaded the repository in the console using the CD command
     ```
-    cd C:\Program Files\Eisberg
+    cd C:\Program Files\blumer
     ```
 6. Install packages
+   
     ```
     npm install
     ```
-7. **If you have used blumer** , you can copy the config.json from the [blumer](https://github.com/brodev3/blumer) application:
-
-8. Use ```import.js``` to import accounts:
+7. Use ```import.js``` to import accounts:
     ```
-    node scr/tg/import
+    node scr/telegram/import
     ```
 You need to create an application and get the api_id and api_hash for yours accounts.
 
@@ -41,7 +40,15 @@ Proxy format: ```ip:port:login:pass``` OR send empty string for direct connectio
 
 Visit: https://my.telegram.org/
 
-10. To start: 
+8. To start: 
     ```
     node index
     ```
+
+
+
+
+
+## License
+
+Project **brodev3**/blumer is distributed under the MIT license.
