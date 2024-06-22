@@ -1,6 +1,7 @@
 const log = require("./utils/logger");
 const telegram = require("./telegram/telegram");
 const axiosRetry = require("./utils/axiosRetryer");
+const notion = require('./utils/notion');
 
 async function delay(delayTime) {
     return new Promise(resolve => setTimeout(resolve, delayTime)); 
@@ -31,7 +32,7 @@ async function tasks(Account){
         let resp = await axiosRetry.get(Account.axios, "https://0xiceberg.com/api/v1/web-app/tasks/");
         let tasksArr = resp.data;
         for (let i = 0; i < tasksArr.length; i++){
-            if (tasksArr[i].description == "Invite 5 friends")
+            if (tasksArr[i].description.includes('friends'))
                 continue;
             let status = tasksArr[i].status;
             if (status == "new")
@@ -91,6 +92,7 @@ async function farming(Account){
         let stop_timestamp = await start(Account);
         let balance = await getBalance(Account);
         log.info(`Account ${Account.username} | Started! Balance: ${balance}`);
+        await notion.findAndUpdatePage("Brothers", Account.username, "Iceberg | Points", +balance);
         await tasks(Account);
         let now = Date.now();
         if (stop_timestamp <= now){
@@ -98,6 +100,7 @@ async function farming(Account){
             let stop_timestamp = await start(Account);
             setTimeout(farming, (Math.floor(Math.random() * (365 - 361 + 1)) + 361) * 60000, Account);
             log.info(`Account ${Account.username} | Claimed reward! Balance: ${balance}`);
+            await notion.findAndUpdatePage("Brothers", Account.username, "Iceberg | Points", +balance);
         } 
         else {
             setTimeout(farming, (stop_timestamp - now), Account);
