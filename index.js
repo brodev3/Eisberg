@@ -4,7 +4,8 @@ const iceberg = require("./scr/iceberg");
 (async () => {
     let accounts = await manager.start_Accounts();
     for (let account in accounts){
-        await iceberg.farming(accounts[account]);
+        setTimeout(iceberg.farming, (Math.floor(Math.random() * (20 - 2 + 1)) + 2) * 60_000, accounts[account]);
+
     };
 })();
 
