@@ -32,7 +32,8 @@ async function tasks(Account){
         let resp = await axiosRetry.get(Account.axios, "https://0xiceberg.com/api/v1/web-app/tasks/");
         let tasksArr = resp.data;
         for (let i = 0; i < tasksArr.length; i++){
-            if (tasksArr[i].description.includes('friends'))
+            let des = tasksArr[i].description;
+            if (des.includes('friends') || des.includes('Upgrade') || des.includes('Moneyviber') || des.includes('Подпишитесь'))
                 continue;
             let status = tasksArr[i].status;
             if (status == "new")
@@ -93,17 +94,17 @@ async function farming(Account){
         let balance = await getBalance(Account);
         log.info(`Account ${Account.username} | Started! Balance: ${balance}`);
         await notion.findAndUpdatePage("Brothers", Account.username, "Iceberg | Points", +balance);
-        await tasks(Account);
+        // await tasks(Account);
         let now = Date.now();
         if (stop_timestamp <= now){
             balance = await claim(Account);
             let stop_timestamp = await start(Account);
-            setTimeout(farming, (Math.floor(Math.random() * (365 - 361 + 1)) + 361) * 60000, Account);
+            setTimeout(farming, (Math.floor(Math.random() * (395 - 361 + 1)) + 361) * 60000, Account);
             log.info(`Account ${Account.username} | Claimed reward! Balance: ${balance}`);
             await notion.findAndUpdatePage("Brothers", Account.username, "Iceberg | Points", +balance);
         } 
         else {
-            setTimeout(farming, (stop_timestamp - now), Account);
+            setTimeout(farming, (stop_timestamp + (Math.floor(Math.random() * (30 - 2 + 1)) + 2) * 60000 - now), Account);
             log.info(`Account ${Account.username} | Waiting claim...`);
         };
         setTimeout(telegram.disconnect, 30000, Account.client);
